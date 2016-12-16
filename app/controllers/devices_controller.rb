@@ -1,6 +1,7 @@
 require 'pry'
 
 class DevicesController < ApplicationController
+  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   # GET /devices
@@ -64,15 +65,21 @@ class DevicesController < ApplicationController
   end
 
   def assign_ip_address
-    #binding.pry
     case request.method
+      when "GET"
+        @device = Device.find(params[:id])
       when "POST"
         #save form params to db
-        @device = Device.create(:name => params[:name])
-        #binding.pry
-        @device.ip_addresses.create(:ip_value => params[:ip_address])
         respond_to do |format|
-            format.html { redirect_to @device, notice: "Ip Address is successfully assigned to the device #{@device.name}." }
+          @device = Device.find_by_name(params[:name])
+          if @device
+            @ip_add = @device.ip_addresses.new(:ip_value => params[:ip_address])
+            if @ip_add.save
+              format.html { redirect_to @device, notice: "Ip Address is successfully assigned to the device #{@device.name}." }
+            else
+              format.html { render :assign_ip_address, :locals => {:device_name => @device.name} }
+            end
+          end
         end
 
     end
@@ -86,6 +93,7 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:name)
+        params.require(:device).permit(:name)
     end
+
 end

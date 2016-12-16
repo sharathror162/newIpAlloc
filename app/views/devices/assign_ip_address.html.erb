@@ -1,7 +1,23 @@
 <%= form_tag("/device/assign", method: "post") do %>
+    <% if @ip_add && @ip_add.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@ip_add.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+          <ul>
+            <% @ip_add.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
     <%= label_tag(:name, "Enter Device Name:") %>
-    <%= text_field_tag(:name) %>
+    <% if @device %>
+      <%= text_field_tag(:name, @device.name, :readonly => true) %>
+    <% else %>
+      <%= text_field_tag(:name, device_name, :readonly => true) %>
+    <% end %>
+
 
     <%= label_tag(:ip_address, "Enter IP Address:") %>
     <%= text_field_tag(:ip_address) %> <br>
