@@ -1,3 +1,5 @@
+require 'pry'
+
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
@@ -58,6 +60,21 @@ class DevicesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def assign_ip_address
+    #binding.pry
+    case request.method
+      when "POST"
+        #save form params to db
+        @device = Device.create(:name => params[:name])
+        #binding.pry
+        @device.ip_addresses.create(:ip_value => params[:ip_address])
+        respond_to do |format|
+            format.html { redirect_to @device, notice: "Ip Address is successfully assigned to the device #{@device.name}." }
+        end
+
     end
   end
 

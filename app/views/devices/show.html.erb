@@ -2,8 +2,16 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @device.name %>
+  <%= @device.name %> <br><br>
+  <strong>IpAddress:</strong>
+  <ul><% @device.ip_addresses.each do |ip_address| %>
+    <li><%= ip_address.ip_value %></li>
+    <% end %>
+  </ul>
+
 </p>
+
+
 
 <%= link_to 'Edit', edit_device_path(@device) %> |
 <%= link_to 'Back', devices_path %>
