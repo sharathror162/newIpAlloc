@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Login Form </h1>
+
+<%= form_tag("/account/login", method: "post") do %>
+
+    <%= label_tag(:login, "Username:") %>
+    <%= text_field_tag(:login) %>
+
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag(:password) %> <br>
+
+    <%= submit_tag("Log In") %>
+<% end %>
+<p id="signup_msg">Not a member yet? Please</p><%= link_to 'Sign Up', action: 'signup' %>
+
