@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216035737) do
+ActiveRecord::Schema.define(version: 20161218010115) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20161216035737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["device_id"], name: "index_ip_addresses_on_device_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "login"
+    t.string   "password"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

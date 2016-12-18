@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_for @user, url: {action: "signup"} do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :login, "Please Enter Your Username" %>
+    <%= f.text_field :login %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "Please Enter Your Email" %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "Please Enter Your Password" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+
+ 
