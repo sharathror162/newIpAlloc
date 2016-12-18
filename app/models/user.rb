@@ -4,17 +4,16 @@ class User < ApplicationRecord
 
   validates :login, :email, presence: true, uniqueness: true
 
-  attr_accessor :hashed_password
-
   before_save :sha1_pass
 
+#For Login
   def self.authenticate(login, password)
   	self.find_by_login_and_password(login, Digest::SHA1.hexdigest(password))
   end
 
+#For Signup
   def sha1_pass
-  	self.hashed_password = Digest::SHA1.hexdigest(self.password)
-  	self.password = hashed_password
+  	self.password = Digest::SHA1.hexdigest(self.password)
   end
-
+ 
 end
