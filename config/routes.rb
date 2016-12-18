@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get '/account/logout', to: 'accounts#logout'
   match '/account/signup', to: 'accounts#signup', via: [:get, :post]
 
-  root 'pages#home'
-  get 'about', to: 'pages#about'
+  root 'devices#index'
 
 end
