@@ -1,13 +1,33 @@
-require 'pry'
-
 class DevicesController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
   before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /devices
   # GET /devices.json
   def index
     @devices = Device.all
+  end
+
+  def assign_ip_address
+    case request.method
+      when "GET"
+        @device = Device.find(params[:id])
+      when "POST"
+        #save form params to db
+        respond_to do |format|
+          @device = Device.find_by_name(params[:name])
+          if @device
+            @ip_add = @device.ip_addresses.new(:ip_value => params[:ip_address])
+            if @ip_add.save
+              format.html { redirect_to @device, notice: "Ip Address is successfully assigned to the device #{@device.name}." }
+            else
+              format.html { render :assign_ip_address, :locals => {:device_name => @device.name} }
+            end
+          end
+        end
+
+    end
   end
 
   # GET /devices/1
@@ -61,27 +81,6 @@ class DevicesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
       format.json { head :no_content }
-    end
-  end
-
-  def assign_ip_address
-    case request.method
-      when "GET"
-        @device = Device.find(params[:id])
-      when "POST"
-        #save form params to db
-        respond_to do |format|
-          @device = Device.find_by_name(params[:name])
-          if @device
-            @ip_add = @device.ip_addresses.new(:ip_value => params[:ip_address])
-            if @ip_add.save
-              format.html { redirect_to @device, notice: "Ip Address is successfully assigned to the device #{@device.name}." }
-            else
-              format.html { render :assign_ip_address, :locals => {:device_name => @device.name} }
-            end
-          end
-        end
-
     end
   end
 

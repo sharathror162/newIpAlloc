@@ -4,10 +4,7 @@
   <strong>Name:</strong>
   <%= @device.name %> <br><br>
   <strong>IpAddress:</strong>
-    <!--<ul><%# @device.ip_addresses.each do |ip_address| %>
-      <li><%#= ip_address.ip_value %></li>
-      <%# end %>
-    </ul>  -->
+    
 <%= select_tag :ip_value, options_from_collection_for_select(@device.ip_addresses, :ip_value, :ip_value) %>
 </p>
 
