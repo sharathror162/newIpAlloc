@@ -20,6 +20,4 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-/*.iws
-.idea/*.xml
-.idea/.iml
+.idea/
