@@ -1,5 +1,10 @@
 <div class = "login">
-<p id="notice"><%= notice %></p>
+  <% if flash[:notice] %>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong></strong> <%= sanitize(notice) %>
+    </div>
+  <% end %>
 
 <h1>Login</h1>
 
@@ -17,6 +22,8 @@
    </p>
 <% end %>
 <div id="signup_msg">Not a member yet? Please <%= link_to 'Sign Up', account_signup_path %></div>
+
+<div><%= link_to 'Forgot password? Click here to reset your password.', account_password_reset_path %></div>
 
 <%= link_to 'Back to Home Page',root_path %>
 </div>
