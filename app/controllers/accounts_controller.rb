@@ -13,10 +13,10 @@ class AccountsController < ApplicationController
       	  @user = User.new(user_params)
       	  if @user.save
             EmailSenderJob.perform_later(@user)
-      	  	flash[:notice] = "Your account has been Successfully created and an activation link has been sent to
-                              your email #{@user.email}. Please check your inbox to activate your account."
+      	  	flash[:success] = "Your account has been Successfully created and an activation link has been sent to
+                               your email #{@user.email}. Please check your inbox to activate your account."
       	  	format.html { redirect_to account_login_path }
-      	  else
+          else
       	  	format.html { render :signup }
       	  end
       	end
@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
       respond_to do |format|
         @user = User.find_by_email(params[:email])
         PasswordResetRequestJob.perform_later(@user)
-        format.html { redirect_to account_reset_notice_path }
+        format.html { redirect_to account_reset_notice_path,:locals => {:user => @user.email} }
       end
     end
   end
@@ -55,21 +55,18 @@ class AccountsController < ApplicationController
   def activate
     respond_to do |format|
       @user.update_attributes(:active => true)
-      flash[:notice] = 'Your Account has been activated. Please Log In.'
+      flash[:success] = 'Your Account has been activated. Please Log In.'
       format.html { redirect_to account_login_path }
     end
   end
 
   def resend_activation
-    case request.method
-      when "POST"
-        respond_to do |format|
-          @user = User.find_by_email(params[:email])
-          binding.pry
-          EmailSenderJob.perform_later(@user)
-          flash.now[:notice] = 'Account activation link has been resent. Please check your email inbox.'
-          format.html { render :resend_activation}
-      end
+    respond_to do |format|
+      @user = User.find_by_email(params[:email])
+      EmailSenderJob.perform_later(@user)
+      flash.now[:resend_2] = 'Account activation link has been resent. Please check your email inbox.
+                              If you have not received it yet for some reason, click to'
+      format.html { render :login}
     end
   end
 
@@ -85,14 +82,12 @@ class AccountsController < ApplicationController
   	  	  	flash[:notice] = "Welcome #{session[:user_login]}" 
   	  	  	format.html {  redirect_to :controller => "devices", :action => "index" }
           elsif authorized_user?(@user, params[:password]) && @user.active.nil?
-            link = url_for(action: 'resend_activation',
-                           only_path: true)
-            flash[:notice] = 'Your account has not been activated yet. Please check you email inbox to look
+            flash[:resend] = 'Your account has not been activated yet. Please check your email inbox to look
                               for the activation link. If you have not received your activation link yet,
-                              click on this link to <a href="#{url_for(link)}">resend it</a>.'
+                              click on this link to'
             format.html { redirect_to account_login_path }
   	  	  else
-  	  	  	flash[:notice] = 'Warning! Invalid Username/Password.'
+  	  	  	flash[:error] = 'Warning! Invalid Username/Password.'
             format.html { redirect_to account_login_path }
           end
         end

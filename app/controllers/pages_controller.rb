@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
 
+  layout "startup"
+
   def home
   end
 
