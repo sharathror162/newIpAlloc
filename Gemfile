@@ -29,6 +29,14 @@ gem 'bcrypt', '~> 3.1.7'
 #For Email Validations
 gem 'email_validator'
 
+#For background jobs asynchronously
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'daemons'
+
+#For setting environment variables
+gem 'dotenv-rails', :groups => [:development, :test]
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -56,3 +64,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'pry'

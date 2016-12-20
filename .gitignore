@@ -20,4 +20,6 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+#Ignore config/secrets.yml file
+config/secrets.yml
 .idea/

@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <%= form_for @user, url: {action: "signup"} do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+     <div class="alert alert-success" role="alert">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this device from being saved:</h2>
 
       <ul>
@@ -28,6 +26,11 @@
     <%= f.password_field :password %>
   </div>
 
+  <div class="field">
+    <%= f.label :password_confirmation, "Please Re-Enter Your Password" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
@@ -36,4 +39,3 @@
 <%= link_to 'Back to Home Page',root_path %>
 
 
- 

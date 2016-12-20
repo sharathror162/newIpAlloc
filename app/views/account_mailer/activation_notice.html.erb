@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Device Ip Blog, <%= @user.login %></h1>
+    <p>
+      You have successfully signed up to ipalloc website,
+      your username is: <%= @user.login %>.<br>
+    </p>
+    <p>
+      To activate your account and login to the site, just click on this link: <%= @activation_link %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

@@ -21,10 +21,6 @@ $navbar-default-bg: #440044;
   text-align: center;
 }
 
-body {
-  background: asset_url("new_image_ruby.png");
-}
-
 section .container {
   background-color: transparent;
   height: auto;
@@ -36,8 +32,8 @@ section .container .row {
 .jumbotron {
   background-size: cover;
   vertical-align: middle;
-  background: rgb(200, 54, 54); /* This is for ie8 and below */
-  background: rgba(255,53,94,0.8);
+  background: rgb(68, 0, 68); /* This is for ie8 and below */
+  background: rgba(68, 0, 68, 0.8);
 }
 
 

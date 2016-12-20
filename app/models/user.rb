@@ -1,19 +1,8 @@
-require 'digest/sha1'
-
 class User < ApplicationRecord
 
-  validates :login, :email, presence: true, uniqueness: true
+  validates :login, presence: true, uniqueness: true
+  validates :email, presence: true
 
-  before_save :sha1_pass
+  has_secure_password
 
-#For Login
-  def self.authenticate(login, password)
-  	self.find_by_login_and_password(login, Digest::SHA1.hexdigest(password))
-  end
-
-#For Signup
-  def sha1_pass
-  	self.password = Digest::SHA1.hexdigest(self.password)
-  end
- 
 end
