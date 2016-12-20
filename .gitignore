@@ -20,22 +20,6 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-/*.iws
-.idea/*.xml
-.idea/.iml
-
 #Ignore config/secrets.yml file
 config/secrets.yml
-
-.idea/workspace.xml
-
-.idea/.generators
-
-.idea/.rakeTasks
-
-.idea/misc.xml
-
-.idea/newIpAlloc.iml
-
-
-
+.idea/
