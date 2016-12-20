@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :devices
 
   post '/device/assign', to: 'devices#assign_ip_address'
