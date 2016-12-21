@@ -91,8 +91,8 @@ class AccountsController < ApplicationController
   	  	  if authorized_user?(@user, params[:password]) && @user.active?
   	  	  	session[:user_id] = @user.id
   	  	  	session[:user_login] = @user.login
-  	  	  	flash[:notice] = "Welcome #{session[:user_login]}" 
-  	  	  	format.html {  redirect_to :controller => "devices", :action => "index" }
+  	  	  	flash[:notice] = "Welcome #{session[:user_login]}"
+  	  	  	format.html {  redirect_to user_devices_path(@user) }
           elsif authorized_user?(@user, params[:password]) && @user.active.nil?
             flash[:resend] = 'Your account has not been activated yet. Please check your email inbox to look
                               for the activation link. If you have not received your activation link yet,

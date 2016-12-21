@@ -1,6 +1,8 @@
 class Device < ApplicationRecord
 
-  has_many :ip_addresses, dependent: :destroy
   validates :name, presence: true, uniqueness: true
+
+  has_many :ip_addresses, dependent: :destroy
+  belongs_to :user
 
 end
