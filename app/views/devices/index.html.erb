@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Devices</h1>
+<h1>User Devices</h1>
 
 <table>
   <thead>
@@ -14,10 +14,11 @@
     <% @devices.each do |device| %>
       <tr>
         <td><%= device.name %></td>
-        <td><%= link_to 'Assign', "/device/assign/#{device.id}"%>
-        <td><%= link_to 'Show', device %></td>
-        <td><%= link_to 'Edit', edit_device_path(device) %></td>
-        <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Assign', "/users/#{@user.id}/device/assign/#{device.id}"%>
+        <td><%= link_to 'Show', user_device_path(@user, device) %></td>
+        <td><%= link_to 'Edit', edit_user_device_path(@user, device) %></td>
+        <td><%= link_to 'Destroy', user_device_path(@user, device),
+          method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Device', new_device_path %>
+<%= link_to 'New Device', new_user_device_path(@user) %>

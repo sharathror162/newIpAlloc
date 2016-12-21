@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  resources :devices
 
-  post '/device/assign', to: 'devices#assign_ip_address'
-  get '/device/assign/:id', to: 'devices#assign_ip_address'
+  resources :users do
+    resources :devices
+  end
+
+  #For assigning ip_addresses to devices
+  post '/users/:user_id/device/assign', to: 'devices#assign_ip_address'
+  get '/users/:user_id/device/assign/:id', to: 'devices#assign_ip_address'
 
   # For authtentication of the application
   match '/account/login', to: 'accounts#login', via: [:get, :post]
@@ -11,7 +15,7 @@ Rails.application.routes.draw do
 
   #For Account Activation
   get '/account/activate/:id', to: 'accounts#activate'
-  get '/account/resend_activation', to: 'accounts#resend_activation'
+  match '/account/resend_activation', to: 'accounts#resend_activation', via: [:get, :post]
 
   #For Password Reset
   get'account/password_reset', to: 'accounts#password_reset'

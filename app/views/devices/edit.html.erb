@@ -1,6 +1,27 @@
 <h1>Editing Device</h1>
 
-<%= render 'form', device: @device %>
+<%= form_for(@device, url: "/users/#{@user.id}/devices/#{@device.id}", html: {method: "patch"}) do |f| %>
+    <% if @device.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@device.errors.count, "error") %> prohibited this device from being saved:</h2>
 
-<%= link_to 'Show', @device %> |
-<%= link_to 'Back', devices_path %>
+          <ul>
+            <% @device.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Change Device" %>
+    </div>
+<% end %>
+
+<%= link_to 'Show', user_device_path(@user, @device) %>
+<%= link_to 'Back', user_devices_path %>
