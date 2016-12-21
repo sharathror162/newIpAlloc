@@ -5,5 +5,6 @@ class User < ApplicationRecord
   validates :email, format: { with: /\A[a-zA-Z0-9]+@gmail.com\z/ }
 
   has_secure_password
+  has_many :devices, dependent: :destroy
 
 end

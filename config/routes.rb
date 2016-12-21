@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :devices
+  resources :users do
+    resources :devices
+  end
 
-  post '/device/assign', to: 'devices#assign_ip_address'
-  get '/device/assign/:id', to: 'devices#assign_ip_address'
+  #For assigning ip_addresses to devices
+  post '/users/:user_id/device/assign', to: 'devices#assign_ip_address'
+  get '/users/:user_id/device/assign/:id', to: 'devices#assign_ip_address'
 
   # For authtentication of the application
   match '/account/login', to: 'accounts#login', via: [:get, :post]
