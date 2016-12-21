@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :devices
 
   post '/device/assign', to: 'devices#assign_ip_address'
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
 
   #For Account Activation
   get '/account/activate/:id', to: 'accounts#activate'
-  get '/account/resend_activation', to: 'accounts#resend_activation'
+  match '/account/resend_activation', to: 'accounts#resend_activation', via: [:get, :post]
 
   #For Password Reset
   get'account/password_reset', to: 'accounts#password_reset'
