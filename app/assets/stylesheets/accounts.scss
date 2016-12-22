@@ -6,8 +6,20 @@
   display: none;
 }
 
+.txt-field{
+  display: none;
+}
+
+.error{
+  color: red;
+}
+
 form {
   border: 1px solid #ffffff;
+}
+
+#greet{
+  color: green;
 }
 
 /* Center the avatar image inside this container */
@@ -59,10 +71,24 @@ input[type=text], input[type=password] {
 }
 
 /* The "Forgot password" text */
-span.psw {
-  float: none;
-  padding-top: 20px;
-  border: 1px solid #f1f1f1;
+#frgt {
+  float: right;
+  padding-top: 5px;
+}
+
+#footer {
+  clear: both;
+  position: relative;
+  z-index: 10;
+  height: 3em;
+  margin-top: -3em;
+  background-color: #f2f2f2;
+  padding-top: 3px;
+}
+
+#rme,#sngup-home {
+  float: left;
+  padding-top: 5px;
 }
 
 /* Change styles for span and cancel button on extra small screens */

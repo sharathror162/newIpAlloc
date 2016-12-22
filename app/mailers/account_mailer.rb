@@ -9,9 +9,9 @@ class AccountMailer < ApplicationMailer
   end
 
   def password_reset_notice(user)
-  	@user_reset = user
-  	@reset_link  = "http://localhost:3000/account/reset_approved/#{@user_reset.id}"
-    mail(to: @user_reset.email, subject: 'Reset Your Password')
+  	@user = user
+  	@reset_link  = "http://localhost:3000/account/reset_approved/#{@user.auth_token}"
+    mail(to: @user.email, subject: 'Reset Your Password')
   end
 
 end

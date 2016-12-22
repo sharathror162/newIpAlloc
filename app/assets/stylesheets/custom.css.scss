@@ -1,4 +1,4 @@
-$navbar-default-bg: #440044;
+$navbar-default-bg: #e6ffff;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -10,6 +10,11 @@ $navbar-default-bg: #440044;
   text-transform: uppercase;
   letter-spacing: -1px;
   font-weight: bold;
+}
+
+#logout-link, .dropdown, #home-link, #devices-link {
+  background-color: #D34836;
+  color: #0d0d0d;
 }
 
 #logo:hover {
@@ -32,8 +37,8 @@ section .container .row {
 .jumbotron {
   background-size: cover;
   vertical-align: middle;
-  background: rgb(73, 0, 68); /* This is for ie8 and below */
-  background: rgba(73, 0, 68, 0.8);
+  background: rgb(230, 255, 255); /* This is for ie8 and below */
+  background: rgba(230, 255, 255, 0.8);
 }
 
 
