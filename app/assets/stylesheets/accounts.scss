@@ -6,8 +6,20 @@
   display: none;
 }
 
+.field{
+  display: none;
+}
+
+.error{
+  color: red;
+}
+
 form {
   border: 1px solid #ffffff;
+}
+
+#greet{
+  color: green;
 }
 
 /* Center the avatar image inside this container */

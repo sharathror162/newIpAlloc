@@ -1,11 +1,11 @@
 $(document).ready(function(){
     $("#btn2").click(function(){
         var email = $("#txt-fld").val();
-        email_pattern = "^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$";
-        if (email == email_pattern){
+        var email_pattern = new RegExp("/^[a-z0-9]+\@+gmail.com$/");
+        if (email == ""){
             alert("Email Field Cannot Be Empty");
         }
-        else if (!(email.match(email_pattern))) {
+        else if (email_pattern.test(email)) {
             alert("Please Enter A Valid Email Address");
         }
         else {
@@ -25,4 +25,19 @@ $(document).ready(function(){
     $(".alert-link").click(function(){
         $("#resend-link").removeClass("txt-fld-group");
     });
+
+    $( "#login-form" ).submit(function(event) {
+        var login = $("#login-txt").val();
+        var pwd = $("#pwd-txt").val();
+        if ((login == "") && (pwd == "")){
+            $("#f1").removeClass("field").addClass("error");
+            $("#f2").removeClass("field").addClass("error");
+            return false;
+        }
+    });
 });
+
+
+
+
+

@@ -31,18 +31,19 @@
 
   <h3><strong>Sign In</strong></h3>
 
-<%= form_tag("/account/login", method: "post") do %>
+<%= form_tag("/account/login", method: "post", id: "login-form") do %>
   <div class="imgcontainer">
     <%= image_tag "mountain_hill.jpg", :class => "avatar" %>
   </div>
 
   <div>
     <%= label_tag(:login, "Username") %>
-    <%= text_field_tag(:login) %>
-
+    <input id="login-txt" type="text" name="login">
+    <span id="f1" class="field">Username is empty</span>
 
     <%= label_tag(:password, "Password") %>
-    <%= password_field_tag(:password) %>
+    <input id="pwd-txt" type="password" name="password">
+    <span id="f2" class="field">Password is empty</span>
 
     <%= submit_tag("Sign In", :id=>"btn", :name=>"submit") %>
   </div>

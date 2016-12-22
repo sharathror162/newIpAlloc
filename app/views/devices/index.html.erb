@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h3 id="greet">Welcome <%= @user.login %></h3>
 
-<h1>User Devices</h1>
+<h1><%= @user.login %>'s Devices</h1>
 
 <table>
   <thead>
@@ -25,5 +25,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Device', new_user_device_path(@user) %>

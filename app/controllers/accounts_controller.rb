@@ -30,11 +30,17 @@ class AccountsController < ApplicationController
     case request.method
       when "POST"
       respond_to do |format|
-        @user = User.find_by_email(params[:email])
-        if @user and @user.active?
+        @user = User.find_by_email(params[:emails])
+        if params[:email].blank?
+          flash.now[:notice] = "Email Field Cannot Be Empty."
+          format.html { render :password_reset }
+        elsif @user and @user.active?
           PasswordResetRequestJob.perform_later(@user)
           flash[:notice] = "A Reset link has been sent to your email #{@user.email}.
                             Please click on it to finish resetting your password. Thank you."
+          format.html { redirect_to account_login_path }
+        elsif @user.nil?
+          flash[:notice] = "Sorry. It seems you do not have an account with us yet. Please sign up now."
           format.html { redirect_to account_login_path }
         else
           flash[:resend] = 'Your account has not been activated yet. Please check your email inbox to look
