@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :login, "Please Enter Your Username" %>
+    <%= f.label :login, "Please Enter Your Username:" %>
     <%= f.text_field :login %>
   </div>
 
   <div class="field">
-    <%= f.label :email, "Please Enter Your Email" %>
+    <%= f.label :email, "Please Enter Your Email(only gmail domain):" %>
     <%= f.text_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :password, "Please Enter Your Password" %>
+    <%= f.label :password, "Please Enter Your Password:" %>
     <%= f.password_field :password %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, "Please Re-Enter Your Password" %>
+    <%= f.label :password_confirmation, "Please Re-Enter Your Password:" %>
     <%= f.password_field :password_confirmation %>
   </div>
 
@@ -36,6 +36,8 @@
   </div>
 <% end %>
 
-<%= link_to 'Back to Home Page',root_path %>
+<%= link_to 'Back to Home Page',root_path %>|
+<%= link_to 'Back to Login Page',account_login_path %>
+
 
 
