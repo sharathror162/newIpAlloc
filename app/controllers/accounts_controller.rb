@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
       	  end
       	end
     end
-  end	
+  end
 
   def password_reset
   end 

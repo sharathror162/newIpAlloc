@@ -32,8 +32,8 @@ section .container .row {
 .jumbotron {
   background-size: cover;
   vertical-align: middle;
-  background: rgb(68, 0, 68); /* This is for ie8 and below */
-  background: rgba(68, 0, 68, 0.8);
+  background: rgb(242, 242, 242); /* This is for ie8 and below */
+  background: rgba(242, 242, 242, 0.8);
 }
 
 
