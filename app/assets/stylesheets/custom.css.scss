@@ -1,4 +1,4 @@
-$navbar-default-bg: #3333ff;
+$navbar-default-bg: #e6ffff;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -37,8 +37,8 @@ section .container .row {
 .jumbotron {
   background-size: cover;
   vertical-align: middle;
-  background: rgb(242, 242, 242); /* This is for ie8 and below */
-  background: rgba(242, 242, 242, 0.8);
+  background: rgb(230, 255, 255); /* This is for ie8 and below */
+  background: rgba(230, 255, 255, 0.8);
 }
 
 

@@ -30,14 +30,11 @@ $(document).ready(function(){
         var login = $("#login-txt").val();
         var pwd = $("#pwd-txt").val();
         if ((login == "") && (pwd == "")){
-            $("#f1").removeClass("field").addClass("error");
-            $("#f2").removeClass("field").addClass("error");
+            $("#f1").removeClass("txt-field").addClass("error");
+            $("#f2").removeClass("txt-field").addClass("error");
             return false;
         }
     });
 });
-
-
-
 
 

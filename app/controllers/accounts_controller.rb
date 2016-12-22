@@ -1,8 +1,7 @@
 class AccountsController < ApplicationController
 
-  before_action :set_user, only: [:activate, :reset_approved]
-
-  layout "startup"
+  before_action :set_user, only: [:activate]
+  before_action :check_token_expiration, only: [:reset_approved]
 
   def signup
     case request.method
@@ -30,17 +29,18 @@ class AccountsController < ApplicationController
     case request.method
       when "POST"
       respond_to do |format|
-        @user = User.find_by_email(params[:emails])
+        @user = User.find_by_email(params[:email])
         if params[:email].blank?
-          flash.now[:notice] = "Email Field Cannot Be Empty."
+          flash.now[:notice] = 'Email Field Cannot Be Empty.'
           format.html { render :password_reset }
+        elsif @user.nil?
+          flash[:notice] = 'Sorry. Email does not exist. It may be because you do not have an account with us yet.
+                            Please sign up now.'
+          format.html { redirect_to account_login_path }
         elsif @user and @user.active?
-          PasswordResetRequestJob.perform_later(@user)
+          @user.send_password_reset
           flash[:notice] = "A Reset link has been sent to your email #{@user.email}.
                             Please click on it to finish resetting your password. Thank you."
-          format.html { redirect_to account_login_path }
-        elsif @user.nil?
-          flash[:notice] = "Sorry. It seems you do not have an account with us yet. Please sign up now."
           format.html { redirect_to account_login_path }
         else
           flash[:resend] = 'Your account has not been activated yet. Please check your email inbox to look
@@ -56,8 +56,8 @@ class AccountsController < ApplicationController
     case request.method
       when "POST"
         respond_to do |format|
-          if @user.update_attributes(:password => params[:user][:password], 
-                                     :password_confirmation => params[:user][:password_confirmation])
+          @user = User.find_by_auth_token(params[:auth_token])
+          if @user.update_attributes(user_params)
             flash[:notice] = 'Your Password has been Successfully reset.'
             format.html { redirect_to account_login_path }
           else
@@ -95,9 +95,11 @@ class AccountsController < ApplicationController
   	  	  @user = User.find_by_login(params[:login])
 
   	  	  if authorized_user?(@user, params[:password]) && @user.active?
-  	  	  	session[:user_id] = @user.id
-  	  	  	session[:user_login] = @user.login
-  	  	  	flash[:notice] = "Welcome #{session[:user_login]}"
+            if params[:remember_me]
+              cookies.permanent[:user_id] = @user.id
+            else
+              cookies[:user_id] = @user.id
+            end
   	  	  	format.html {  redirect_to user_devices_path(@user) }
           elsif authorized_user?(@user, params[:password]) && @user.active.nil?
             flash[:resend] = 'Your account has not been activated yet. Please check your email inbox to look
@@ -114,7 +116,7 @@ class AccountsController < ApplicationController
 
   def logout
   	respond_to do |format|
-  	  session[:user_id] = nil
+  	  cookies.delete(:user_id)
   	  flash[:notice] = 'User Successfully Logged Out'
   	  format.html { redirect_to account_login_path }
   	end
@@ -134,5 +136,15 @@ class AccountsController < ApplicationController
     return true if user && user.authenticate(pass)
   end
 
-end
+  def check_token_expiration
+    @user = User.find_by_auth_token(params[:auth_token])
+    if @user.token_expired?
+      flash[:notice] = 'Your Password Reset request has been expired.'
+      redirect_to account_login_path
+      return false
+    else
+      return true
+    end
+  end
 
+end

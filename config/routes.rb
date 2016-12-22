@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   #For Password Reset
   get'account/password_reset', to: 'accounts#password_reset'
   match 'account/reset_notice', to: 'accounts#reset_notice', via: [:get, :post]
-  match 'account/reset_approved/:id', to: 'accounts#reset_approved', via: :all
+  match 'account/reset_approved/:auth_token', to: 'accounts#reset_approved', via: :all
 
   root 'pages#home'
   get 'about', to: 'pages#about'

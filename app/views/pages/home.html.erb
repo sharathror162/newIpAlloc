@@ -1,5 +1,7 @@
-<h1>Welcome to Device IP  Blog</h1>
-<section class="text-center jumbotron">
+<body class="<%= @home_page ? 'homepage' : ''%>">
+<h1><center><strong>Welcome to Device Blog</strong></center></h1>
+<%= render 'slide' %>
+<section class="text-center jumbotron table-bordered">
   <div class="container">
     <div class="row">
       <h1 class="display-3"><strong>DEVICE BLOG</strong></h1>
@@ -10,3 +12,5 @@
     </div>
   </div>
 </section>
+</body>
+
