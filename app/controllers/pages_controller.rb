@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  layout "startup"
+  #layout "startup"
 
   def home
     @home_page = true
