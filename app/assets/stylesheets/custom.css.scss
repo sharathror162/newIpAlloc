@@ -37,11 +37,34 @@ section .container .row {
 .jumbotron {
   background-size: cover;
   vertical-align: middle;
-  background: rgb(230, 255, 255); /* This is for ie8 and below */
-  background: rgba(230, 255, 255, 0.8);
+  background: rgb(214, 214, 214); /* This is for ie8 and below */
+  background: rgba(214, 214, 214, 0.8);
 }
 
+footer{
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
 
+footer a:hover{
+  color: #222;
+}
+
+footer small{
+  float: right;
+}
+
+footer ul{
+  float: right;
+  list-style: none;
+}
+
+footer nav ul li {
+  float: right;
+  margin-left: 0px;
+}
 /**************************
   DEFAULT BOOTSTRAP STYLES
 **************************/
