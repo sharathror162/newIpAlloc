@@ -66,6 +66,7 @@ class AccountsController < ApplicationController
             flash[:notice] = 'Your Password has been Successfully reset.'
             format.html { redirect_to account_login_path }
           else
+            flash[:notice] = 'Something went wrong.Please reset your password again.'
             format.html { render :reset_approved }
           end
         end
