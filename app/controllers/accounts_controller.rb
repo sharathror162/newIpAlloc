@@ -10,14 +10,19 @@ class AccountsController < ApplicationController
       when "POST"
         respond_to do |format|
       	  @user = User.new(user_params)
-      	  if @user.save
-            EmailSenderJob.perform_later(@user)
-      	  	flash[:notice] = "Your account has been Successfully created and an activation link has been sent to
-                               your email #{@user.email}. Please check your inbox to activate your account."
-      	  	format.html { redirect_to account_login_path }
+          unless User.find_by_email(@user.email).present?
+            if @user.save
+              EmailSenderJob.perform_later(@user)
+              flash[:notice] = "Your account has been Successfully created and an activation link has been sent to
+                                 your email #{@user.email}. Please check your inbox to activate your account."
+              format.html { redirect_to account_login_path }
+            else
+              format.html { render :signup }
+            end
           else
-      	  	format.html { render :signup }
-      	  end
+            flash.now[:notice] = "This Email #{@user.email} has already been taken. Please enter a new email"
+            format.html { render :signup }
+          end
       	end
     end
   end

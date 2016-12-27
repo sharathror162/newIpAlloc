@@ -1,15 +1,22 @@
 <%= form_for @user, url: {action: "signup"} do |f| %>
-  <% if @user.errors.any? %>
-     <div class="alert alert-success" role="alert">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this device from being saved:</h2>
+    <% if @user.errors.any? %>
+       <div class="alert alert-success" role="alert">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this device from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% elsif flash[:notice] %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            <%= flash[:notice] %>
+          </div>
+    <% end %>
 
   <div class="field">
     <%= f.label :login, "Please Enter Your Username:" %>
